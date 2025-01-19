@@ -1,9 +1,5 @@
 # TelegramBotCollege
-Разработка Telegram бота 
+Практическое задание по разработке Telegram бота.
 
-# Запуск проекта
-1 - Установка необходимых компонентов :  
-· nodemon  
-· grammy  
-· dotenv  
-· node-xlsx
+
+
