@@ -10,9 +10,16 @@
 
 # Установка необоходимых компонентов
 Вам необоходимо установить следующие компоненты: 
+
 ·grammy
+
 ·nodemon
+
 ·exceljs
+
 ·dotenv
+
 ·axios
+
 ·@grammyjs/conversations
+
