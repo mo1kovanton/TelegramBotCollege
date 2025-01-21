@@ -5,7 +5,7 @@ const axios = require('axios');
 module.exports = (bot) => {
     bot.use(conversations());
    
-    async function calculatePercent(conversation,ctx) {
+    async function checkedHomework(conversation,ctx) {
         await ctx.reply('Вы выбрали команду для подсчета % проверенных домашних заданий. Пришлите мне файл с расширением .xlsx для обработки данных.'); 
         const userResponse = await conversation.wait(); 
 
@@ -21,11 +21,10 @@ module.exports = (bot) => {
                     const fileInformation = await bot.api.getFile(file.file_id);
                     const fileUrl = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${fileInformation.file_path}`;  
                     const request = await axios.get(fileUrl, { responseType: 'arraybuffer' });
-                    console.log('Размер файла:', request.data.length);
                     const result = await xlsxFileHandler(request.data);
 
                     if (result.success) {
-                        statisticsMessage(ctx,result.data);
+                        message(ctx,result.data);
                         return;  
                     } else {
                         console.log('Ошибка обработки данных.');
@@ -46,7 +45,7 @@ module.exports = (bot) => {
         }
     }
     
-    async function statisticsMessage(ctx,data){
+    async function message(ctx,data){
         let message = 'Статистика проверки домашних заданий:\n'; 
         
         const columns = {
@@ -54,7 +53,7 @@ module.exports = (bot) => {
             getMonth : 4,
             checkMonth : 5,
             getWeek : 9,
-            checkWeek :10
+            checkWeek : 10
         }; 
 
         data.slice(1).forEach(row => {
@@ -70,14 +69,14 @@ module.exports = (bot) => {
             message+=`Преподаватель - ${educatorName}\n`; 
             message+=`Месяц - ${percentageMonth}%\n`; 
             message+=`Неделя - ${percentageWeek}%\n\n`; 
-        });
+        }); 
 
         await ctx.reply(message); 
     }
 
-    bot.use(createConversation(calculatePercent));
+    bot.use(createConversation(checkedHomework));
 
-    bot.command('homework_percent' , async(ctx)=>{
-        await ctx.conversation.enter('calculatePercent');
+    bot.command('checked_homework' , async(ctx)=>{
+        await ctx.conversation.enter('checkedHomework');
     })
 };
