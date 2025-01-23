@@ -71,10 +71,21 @@ module.exports = (bot) => {
             const percentageWeek = ((checkWeek /getWeek ) * 100).toFixed(2); 
             const percentageDay = ((checkDay /getDay ) * 100).toFixed(2); 
         
-            message+=`Преподаватель - ${educatorName}\n`; 
-            message+=`Месяц - ${percentageMonth}%\n`; 
-            message+=`Неделя - ${percentageWeek}%\n`; 
-            message+=`День - ${percentageDay}%\n\n`; 
+            message+=`Преподаватель - ${educatorName}\n`;
+
+            if(percentageMonth < 75){
+                message+=`Месяц - ${percentageMonth}%\n`;
+            }
+
+            if(percentageWeek < 75){
+                message+=`Неделя - ${percentageWeek}%\n`; 
+            }
+           
+            if(percentageDay < 75){
+                message+=`День - ${percentageDay}%\n`;
+            }
+
+            message+=`\n`;
         }); 
 
         await ctx.reply(message); 

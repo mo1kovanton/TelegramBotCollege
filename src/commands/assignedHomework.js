@@ -46,7 +46,7 @@ module.exports = (bot) => {
     }
     
     async function message(ctx,data){
-        let message = 'Статистика выдачи домашних заданий :\n'; 
+        let message = 'Статистика выдачи домашних заданий:\n'; 
         
         const columns = {
             educatorName : 1,
@@ -71,10 +71,21 @@ module.exports = (bot) => {
             const percentageWeek = ((issuedTaskWeek /planWeek ) * 100).toFixed(2); 
             const percentageDay = ((issuedTaskDay /planDay ) * 100).toFixed(2); 
 
-            message+=`Преподаватель - ${educatorName}\n`; 
-            message+=`Месяц - ${percentageMonth}%\n`; 
-            message+=`Неделя - ${percentageWeek}%\n`; 
-            message+=`День - ${percentageDay}%\n\n`; 
+            message+=`Преподаватель - ${educatorName}\n`;
+
+            if(percentageMonth < 70){
+                message+=`Месяц - ${percentageMonth}%\n`;
+            }
+
+            if(percentageWeek < 70){
+                message+=`Неделя - ${percentageWeek}%\n`; 
+            }
+           
+            if(percentageDay < 70){
+                message+=`День - ${percentageDay}%\n`;
+            }
+           
+            message+=`\n`;
         }); 
 
         await ctx.reply(message); 
