@@ -7,7 +7,6 @@ async function xlsxFileHandler(buffer) {
         const worksheet = workbook.worksheets[0]; 
       
         if(worksheet.rowCount === 0){
-            console.log('Файл пустой.')
             return {success : false }; 
         }
 
