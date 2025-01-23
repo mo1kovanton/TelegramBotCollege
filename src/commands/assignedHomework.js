@@ -46,14 +46,16 @@ module.exports = (bot) => {
     }
     
     async function message(ctx,data){
-        let message = 'Статистика проверки домашних заданий:\n'; 
+        let message = 'Статистика выдачи домашних заданий :\n'; 
         
         const columns = {
             educatorName : 1,
             issuedTaskMonth : 3,
             planMonth : 6,
             issuedTaskWeek : 8,
-            planWeek : 11
+            planWeek : 11,
+            issuedTaskDay : 13,
+            planDay : 16,
         }; 
 
         data.slice(1).forEach(row => {
@@ -62,13 +64,17 @@ module.exports = (bot) => {
             const planMonth = row[columns.planMonth]; 
             const issuedTaskWeek = row[columns.issuedTaskWeek]; 
             const planWeek = row[columns.planWeek]; 
+            const issuedTaskDay = row[columns.issuedTaskDay]; 
+            const planDay = row[columns.planDay]; 
 
             const percentageMonth = ((issuedTaskMonth /planMonth ) * 100).toFixed(2); 
             const percentageWeek = ((issuedTaskWeek /planWeek ) * 100).toFixed(2); 
+            const percentageDay = ((issuedTaskDay /planDay ) * 100).toFixed(2); 
 
             message+=`Преподаватель - ${educatorName}\n`; 
             message+=`Месяц - ${percentageMonth}%\n`; 
-            message+=`Неделя - ${percentageWeek}%\n\n`; 
+            message+=`Неделя - ${percentageWeek}%\n`; 
+            message+=`День - ${percentageDay}%\n\n`; 
         }); 
 
         await ctx.reply(message); 

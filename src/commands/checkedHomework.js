@@ -53,7 +53,9 @@ module.exports = (bot) => {
             getMonth : 4,
             checkMonth : 5,
             getWeek : 9,
-            checkWeek : 10
+            checkWeek : 10,
+            getDay : 14,
+            checkDay : 15
         }; 
 
         data.slice(1).forEach(row => {
@@ -62,13 +64,17 @@ module.exports = (bot) => {
             const checkMonth = row[columns.checkMonth]; 
             const getWeek = row[columns.getWeek]; 
             const checkWeek = row[columns.checkWeek]; 
+            const getDay = row[columns.getDay]; 
+            const checkDay = row[columns.checkDay]; 
 
-            const percentageMonth = ((checkMonth /getMonth ) * 100).toFixed(2); 
+            const percentageMonth =((checkMonth /getMonth ) * 100).toFixed(2); 
             const percentageWeek = ((checkWeek /getWeek ) * 100).toFixed(2); 
-
+            const percentageDay = ((checkDay /getDay ) * 100).toFixed(2); 
+        
             message+=`Преподаватель - ${educatorName}\n`; 
             message+=`Месяц - ${percentageMonth}%\n`; 
-            message+=`Неделя - ${percentageWeek}%\n\n`; 
+            message+=`Неделя - ${percentageWeek}%\n`; 
+            message+=`День - ${percentageDay}%\n\n`; 
         }); 
 
         await ctx.reply(message); 
